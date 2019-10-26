@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "222991821377",
+    "firebase_url": "https://tossit-62ddc.firebaseio.com",
+    "project_id": "tossit-62ddc",
+    "storage_bucket": "tossit-62ddc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:222991821377:android:b342118b146c9c16f734c0",
+        "android_client_info": {
+          "package_name": "com.example.tossit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "222991821377-i0m80db2kcadi4kh1k0fi8kc9tr8ml1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLb5APp8c7OqVIxF7uZiVscFsS2xNghV4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "222991821377-i0m80db2kcadi4kh1k0fi8kc9tr8ml1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
