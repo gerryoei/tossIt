@@ -88,4 +88,16 @@
         android:textColor="@color/greySecondary"
         tools:text="$$$" />
 
+    <TextView
+        android:id="@+id/startdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/restaurant_item_name"
+        android:layout_marginStart="59dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/restaurant_item_city"
+        android:layout_toRightOf="@+id/restaurant_item_city"
+        android:text="TextView" />
+
 </RelativeLayout>

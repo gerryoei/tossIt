@@ -20,12 +20,17 @@ import android.content.Context;
 import com.google.firebase.example.fireeats.R;
 import com.google.firebase.example.fireeats.model.TossItem;
 
+import java.text.DateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 /**
  * Utilities for Restaurants.
@@ -69,6 +74,23 @@ public class TossItemUtil {
     };
 
 
+//    private TextView dateTimeDisplay;
+//    private Calendar calendar;
+//    private SimpleDateFormat dateFormat;
+//    private String date;
+
+//    public static void getCurrentDate() {
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//        LocalDateTime now = LocalDateTime.now();
+//        System.out.println(dtf.format(now));
+//    }
+
+    public static String getCurrentDate(){
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        return currentDate;
+    }
+
     /**
      * Create a random TossItem POJO.
      */
@@ -93,6 +115,7 @@ public class TossItemUtil {
         tossItem.setPrice(getRandomInt(prices, random));
         tossItem.setAvgRating(getRandomRating(random));
         tossItem.setNumRatings(random.nextInt(20));
+        tossItem.setStartDate(getCurrentDate());
 
         return tossItem;
     }
