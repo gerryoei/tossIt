@@ -16,6 +16,9 @@
  package com.google.firebase.example.fireeats.adapter;
 
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +78,17 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
         TextView cityView;
         TextView currentDateView;
 
+        public Bitmap StringToBitMap(String encodedString){
+            try {
+                byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+                Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+                return bitmap;
+            } catch(Exception e) {
+                e.getMessage();
+                return null;
+            }
+        }
+
         public ViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.restaurant_item_image);
@@ -93,18 +107,14 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
             TossItem tossItem = snapshot.toObject(TossItem.class);
             Resources resources = itemView.getResources();
 
-            // Load image
-            Glide.with(imageView.getContext())
-                    .load(tossItem.getPhoto())
-                    .into(imageView);
-
+            imageView.setImageBitmap(StringToBitMap(tossItem.getPhoto()));
             nameView.setText(tossItem.getName());
             ratingBar.setRating((float) tossItem.getAvgRating());
             cityView.setText(tossItem.getAddress());
             categoryView.setText(tossItem.getCategory());
             numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
                     tossItem.getNumRatings()));
-            priceView.setText(TossItemUtil.getPriceString(tossItem));
+            priceView.setText(TossItemUtil.getPriceString(tossItem.getStartPrice()));
             currentDateView.setText(tossItem.getStartDate());
 
             // Click listener

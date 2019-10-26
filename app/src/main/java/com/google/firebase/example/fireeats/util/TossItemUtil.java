@@ -141,16 +141,17 @@ public class TossItemUtil {
     /**
      * Get price represented as dollar signs.
      */
-    public static String getPriceString(int priceInt) {
-        switch (priceInt) {
-            case 1:
-                return "$";
-            case 2:
-                return "$$";
-            case 3:
-            default:
-                return "$$$";
-        }
+    public static String getPriceString(long price) {
+//        switch (priceInt) {
+//            case 1:
+//                return "$";
+//            case 2:
+//                return "$$";
+//            case 3:
+//            default:
+//                return "$$$";
+//        }
+        return "$" + String.valueOf(price);
     }
 
     private static double getRandomRating(Random random) {

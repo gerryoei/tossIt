@@ -16,8 +16,11 @@
  package com.google.firebase.example.fireeats;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -284,6 +287,17 @@ public class AuctionDetailActivity extends AppCompatActivity implements
         onTossItemLoaded(snapshot.toObject(TossItem.class));
     }
 
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
     private void onTossItemLoaded(TossItem tossItem) {
         Log.d("onTossItemLoaded", "called method");
         Log.d("onTossItemLoaded", tossItem.toString());
@@ -292,14 +306,15 @@ public class AuctionDetailActivity extends AppCompatActivity implements
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, tossItem.getNumRatings()));
         mCityView.setText(tossItem.getAddress());
         mCategoryView.setText(tossItem.getCategory());
-        mPriceView.setText(TossItemUtil.getPriceString(tossItem));
+        mPriceView.setText(TossItemUtil.getPriceString(tossItem.getStartPrice()));
+        mImageView.setImageBitmap(StringToBitMap(tossItem.getPhoto()));
 
-        // Background image
-        if (!TextUtils.isEmpty(tossItem.getPhoto())) {
-            Glide.with(mImageView.getContext())
-                    .load(tossItem.getPhoto())
-                    .into(mImageView);
-        }
+//        // Background image
+//        if (!TextUtils.isEmpty(tossItem.getPhoto())) {
+//            Glide.with(mImageView.getContext())
+//                    .load(tossItem.getPhoto())
+//                    .into(mImageView);
+//        }
 
 
     }
