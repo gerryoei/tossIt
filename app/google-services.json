@@ -1,34 +1,71 @@
 {
   "project_info": {
-    "project_number": "222991821377",
-    "firebase_url": "https://tossit-62ddc.firebaseio.com",
-    "project_id": "tossit-62ddc",
-    "storage_bucket": "tossit-62ddc.appspot.com"
+    "project_number": "488580538048",
+    "firebase_url": "https://hack-gt-2019.firebaseio.com",
+    "project_id": "hack-gt-2019",
+    "storage_bucket": "hack-gt-2019.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:222991821377:android:b342118b146c9c16f734c0",
+        "mobilesdk_app_id": "1:488580538048:android:31990842569f1404059725",
         "android_client_info": {
-          "package_name": "com.example.tossit"
+          "package_name": "com.example.ekene.blogzone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "222991821377-i0m80db2kcadi4kh1k0fi8kc9tr8ml1e.apps.googleusercontent.com",
+          "client_id": "488580538048-9gmuer4o42o95nkmc5mn3ktkbl9r238n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBLb5APp8c7OqVIxF7uZiVscFsS2xNghV4"
+          "current_key": "AIzaSyBuE-ZTediYvS50SCRXqxynLmhSo1RKKso"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "222991821377-i0m80db2kcadi4kh1k0fi8kc9tr8ml1e.apps.googleusercontent.com",
+              "client_id": "488580538048-9gmuer4o42o95nkmc5mn3ktkbl9r238n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:488580538048:android:974c70bc546ec790059725",
+        "android_client_info": {
+          "package_name": "com.google.firebase.example.fireeats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "488580538048-kjts3o1kmembt558osreglls7otrfmhp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.google.firebase.example.fireeats",
+            "certificate_hash": "4cd3636c7c3a6f79a728aa704c80881dfbce5b45"
+          }
+        },
+        {
+          "client_id": "488580538048-9gmuer4o42o95nkmc5mn3ktkbl9r238n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuE-ZTediYvS50SCRXqxynLmhSo1RKKso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "488580538048-9gmuer4o42o95nkmc5mn3ktkbl9r238n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
