@@ -73,6 +73,7 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
         TextView priceView;
         TextView categoryView;
         TextView cityView;
+        TextView currentDateView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -83,6 +84,7 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
             priceView = itemView.findViewById(R.id.restaurant_item_price);
             categoryView = itemView.findViewById(R.id.restaurant_item_category);
             cityView = itemView.findViewById(R.id.restaurant_item_city);
+            currentDateView = itemView.findViewById(R.id.startdate);
         }
 
         public void bind(final DocumentSnapshot snapshot,
@@ -103,6 +105,7 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
             numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
                     tossItem.getNumRatings()));
             priceView.setText(TossItemUtil.getPriceString(tossItem));
+            currentDateView.setText(tossItem.getStartDate());
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
