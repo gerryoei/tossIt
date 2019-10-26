@@ -28,6 +28,7 @@
     <string name="sorted_by_popularity">sorted by popularity</string>
 
     <string name="add_random_items">Add Random Items</string>
+    <string name="see_profile">Profile</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete_all">Delete All</string>
     <string name="divider_bullet">•</string>

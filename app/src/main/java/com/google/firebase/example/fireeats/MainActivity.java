@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.example.fireeats.adapter.TossItemAdapter;
 import com.google.firebase.example.fireeats.model.TossItem;
 import com.google.firebase.example.fireeats.util.TossItemUtil;
@@ -238,6 +239,9 @@ public class MainActivity extends AppCompatActivity implements
                 AuthUI.getInstance().signOut(this);
                 startSignIn();
                 break;
+            case R.id.menu_profile:
+                seeProfile();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -299,6 +303,17 @@ public class MainActivity extends AppCompatActivity implements
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
+    }
+
+    private void seeProfile() {
+        // Get user name from Firebase
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+        Log.d("MainActivity username", name);
+
+        Intent profile_intent=new Intent(MainActivity.this,UserInfoActivity.class)
+                .putExtra("username", name);
+        startActivity(profile_intent);
     }
 
     private void showTodoToast() {
