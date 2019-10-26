@@ -35,24 +35,24 @@ public class TossItem {
     private String photo;
     private int price;
     private int numRatings;
+    private String description;
     private double avgRating;
     // Need to add string to date formatter
     private String startDate;
     private String endDate;
     // Start price and End price
-    private int startPrice;
-    private int endPrice;
+    private long startPrice;
+    private long endPrice;
 
     public TossItem() {}
 
-    public TossItem(String name, String address, String category, String photo,
-                    String startDate, String endDate, int startPrice, int endPrice) {
+    public TossItem(String name, String address, String description, String category, String photo,
+                    String startDate, String endDate, long startPrice, long endPrice) {
         this.name = name;
+        this.description = description;
         this.address = address;
+        this.photo = photo;
         this.category = category;
-        //this.price = price;
-        //this.numRatings = numRatings;
-        //this.avgRating = avgRating;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startPrice = startPrice;
@@ -65,6 +65,14 @@ public class TossItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAddress() {
@@ -121,10 +129,10 @@ public class TossItem {
     public String getEndDate() {return endDate;}
     public void setEndDate(String endDate) {this.endDate = endDate;}
 
-    public int getStartPrice() {return startPrice;}
+    public long getStartPrice() {return startPrice;}
     public void setStartPrice (int startPrice) {this.startPrice = startPrice;}
 
-    public int getEndPrice() {return endPrice;}
+    public long getEndPrice() {return endPrice;}
     public void setEndPrice(int endPrice) {this.endPrice = endPrice;}
 
 }

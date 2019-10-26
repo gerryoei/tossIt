@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,12 +50,17 @@ import java.util.Date;
 public class AddItemToSellActivity extends AppCompatActivity
 {
     DatePickerDialog picker;
+    Spinner spinner1;
     EditText mItemName;
-    EditText mItemPrice;
-    EditText mItemDescription;
-    EditText mExpiredDate;
     ImageView itemImage;
     Button uploadImage;
+    EditText mItemDescription;
+    EditText mItemAddress;
+    EditText mItemPrice;
+    EditText mItemPriceEnd;
+    EditText mExpiredDate;
+
+    Bitmap bitmap_photo;
     String currentPhotoPath = "";
     String photoFileName = "";
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -67,10 +73,13 @@ public class AddItemToSellActivity extends AppCompatActivity
         mItemName = (EditText)findViewById(R.id.sellItem_form_name);
         mItemPrice = (EditText)findViewById(R.id.sellItem_form_price);
         mItemDescription = (EditText)findViewById(R.id.sellItem_form_description);
+        mItemAddress = (EditText)findViewById(R.id.sellItem_form_address);
         mExpiredDate = (EditText)findViewById(R.id.expiredDate);
         mExpiredDate.setInputType(InputType.TYPE_NULL);
         itemImage = (ImageView)findViewById(R.id.sellItem_imageUpload);
         uploadImage = (Button)findViewById(R.id.button_imageUpload);
+        mItemPriceEnd = (EditText)findViewById(R.id.sellItem_form_priceEnd);
+        spinner1 = (Spinner)findViewById(R.id.spinner1);
 
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +153,7 @@ public class AddItemToSellActivity extends AppCompatActivity
                 e.printStackTrace();
             }
             itemImage.setImageBitmap(bitmap);
+            bitmap_photo = bitmap;
         }
     }
 
@@ -172,35 +182,38 @@ public class AddItemToSellActivity extends AppCompatActivity
         return image;
     }
 
+    public String BitMapToString(Bitmap bitmap){
+        ByteArrayOutputStream baos=new  ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        byte [] b=baos.toByteArray();
+        String temp=Base64.encodeToString(b, Base64.DEFAULT);
+        return temp;
+    }
+
     private void onSubmitClicked(){
         String itemName = mItemName.getText().toString();
-        String itemAddress = "Atlanta";
-        String itemCategory = "Other";
-        String itemPhoto = "Blabla";
-        int itemPrice = Integer.parseInt(mItemName.getText().toString());
-        int itemNumRatings = 10;
-        double itemAvgRatings = 10.0;
-
+        String itemAddress = mItemAddress.getText().toString();
+        String itemCategory = String.valueOf(spinner1.getSelectedItem());
+        String itemPhoto = BitMapToString(bitmap_photo);
         //Get start date which is current date
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         String startDate = dateFormat.format(date);
-        String endDate = "TO BE INPUTTED";
-        int startPrice = itemPrice;
-        int endPrice = -1;
+        String endDate = mExpiredDate.getText().toString();
+        long startPrice = Long.parseLong(mItemPrice.getText().toString());
+        long endPrice = Long.parseLong(mItemPriceEnd.getText().toString());
 
         String itemDescription = mItemName.getText().toString();
 
         TossItem newItem = new TossItem(itemName,
                                         itemAddress,
+                                        itemDescription,
                                         itemCategory,
                                         itemPhoto,
                                         startDate,
                                         endDate,
                                         startPrice,
                                         endPrice);
-
-
 
 
     }
