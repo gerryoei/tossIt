@@ -85,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements
         mRestaurantsRecycler = findViewById(R.id.recycler_restaurants);
         mEmptyView = findViewById(R.id.view_empty);
 
+        findViewById(R.id.floatingActionButton2).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onAddItemToSellClicked();
+            }
+        });
+
         findViewById(R.id.filter_bar).setOnClickListener(this);
         findViewById(R.id.button_clear_filter).setOnClickListener(this);
 
@@ -168,6 +175,12 @@ public class MainActivity extends AppCompatActivity implements
             mAdapter.stopListening();
         }
     }
+
+    private void onAddItemToSellClicked(){
+        Intent intent = new Intent(this, AddItemToSellActivity.class);
+        startActivity(intent);
+    }
+
 
     private void onAddItemsClicked() {
         // Get a reference to the tossitem collection

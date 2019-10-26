@@ -222,7 +222,7 @@ public class AuctionDetailActivity extends AppCompatActivity implements
         mNameView.setText(tossItem.getName());
         mRatingIndicator.setRating((float) tossItem.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, tossItem.getNumRatings()));
-        mCityView.setText(tossItem.getCity());
+        mCityView.setText(tossItem.getAddress());
         mCategoryView.setText(tossItem.getCategory());
         mPriceView.setText(TossItemUtil.getPriceString(tossItem));
 

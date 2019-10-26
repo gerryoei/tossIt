@@ -30,7 +30,7 @@ public class TossItem {
     public static final String FIELD_AVG_RATING = "avgRating";
 
     private String name;
-    private String city;
+    private String address;
     private String category;
     private String photo;
     private int price;
@@ -45,14 +45,14 @@ public class TossItem {
 
     public TossItem() {}
 
-    public TossItem(String name, String city, String category, String photo,
-                    int price, int numRatings, double avgRating, String startDate, String endDate, int startPrice, int endPrice) {
+    public TossItem(String name, String address, String category, String photo,
+                    String startDate, String endDate, int startPrice, int endPrice) {
         this.name = name;
-        this.city = city;
+        this.address = address;
         this.category = category;
-        this.price = price;
-        this.numRatings = numRatings;
-        this.avgRating = avgRating;
+        //this.price = price;
+        //this.numRatings = numRatings;
+        //this.avgRating = avgRating;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startPrice = startPrice;
@@ -67,12 +67,12 @@ public class TossItem {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCategory() {

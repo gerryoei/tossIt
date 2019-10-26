@@ -98,7 +98,7 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
 
             nameView.setText(tossItem.getName());
             ratingBar.setRating((float) tossItem.getAvgRating());
-            cityView.setText(tossItem.getCity());
+            cityView.setText(tossItem.getAddress());
             categoryView.setText(tossItem.getCategory());
             numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
                     tossItem.getNumRatings()));

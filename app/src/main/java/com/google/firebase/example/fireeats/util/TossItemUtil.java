@@ -87,7 +87,7 @@ public class TossItemUtil {
         int[] prices = new int[]{1, 2, 3};
 
         tossItem.setName(getRandomName(random));
-        tossItem.setCity(getRandomString(cities, random));
+        tossItem.setAddress(getRandomString(cities, random));
         tossItem.setCategory(getRandomString(categories, random));
         tossItem.setPhoto(getRandomString(IMG_LINKS, random));
         tossItem.setPrice(getRandomInt(prices, random));
