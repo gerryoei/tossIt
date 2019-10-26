@@ -1,14 +1,9 @@
 package com.google.firebase.example.fireeats;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,39 +11,37 @@ import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.example.fireeats.model.TossItem;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
 public class AddItemToSellActivity extends AppCompatActivity
 {
+    private FirebaseFirestore mFirestore;
+
     DatePickerDialog picker;
     Spinner spinner1;
     EditText mItemName;
@@ -107,12 +100,19 @@ public class AddItemToSellActivity extends AppCompatActivity
             }
         });
 
+        initFirestore();
+
+
         findViewById(R.id.sellItem_form_submit).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 onSubmitClicked();
             }
         });
+    }
+
+    private void initFirestore() {
+        mFirestore = FirebaseFirestore.getInstance();
     }
 
     private void dispatchTakePictureIntent() {
@@ -184,7 +184,7 @@ public class AddItemToSellActivity extends AppCompatActivity
 
     public String BitMapToString(Bitmap bitmap){
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG,35, baos);
         byte [] b=baos.toByteArray();
         String temp=Base64.encodeToString(b, Base64.DEFAULT);
         return temp;
@@ -195,6 +195,8 @@ public class AddItemToSellActivity extends AppCompatActivity
         String itemAddress = mItemAddress.getText().toString();
         String itemCategory = String.valueOf(spinner1.getSelectedItem());
         String itemPhoto = BitMapToString(bitmap_photo);
+        Log.w("Image", itemPhoto);
+        //String itemPhoto = "hahaha";
         //Get start date which is current date
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -214,7 +216,19 @@ public class AddItemToSellActivity extends AppCompatActivity
                                         endDate,
                                         startPrice,
                                         endPrice);
-
-
+        // Get a reference to the tossitem collection
+        CollectionReference tossitem = mFirestore.collection("testitem");
+        tossitem.add(newItem).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.w("ADDED", "ADDED");
+                finish();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w("FAILED ADD", "Error adding event document", e);
+            }
+        });
     }
 }
