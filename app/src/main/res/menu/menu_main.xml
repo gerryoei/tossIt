@@ -3,6 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_profile"
+        android:title="@string/see_profile" />
+
+    <item
         android:id="@+id/menu_sign_out"
         android:title="@string/sign_out" />
 

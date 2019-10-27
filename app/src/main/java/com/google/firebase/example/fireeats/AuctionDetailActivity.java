@@ -16,12 +16,16 @@
  package com.google.firebase.example.fireeats;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +34,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -47,6 +58,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -70,6 +87,7 @@ public class AuctionDetailActivity extends AppCompatActivity implements
     private TextView mPriceView;
     private ViewGroup mEmptyView;
     private RecyclerView mRatingsRecycler;
+    private Button mBuyButton;
 
     private RatingDialogFragment mRatingDialog;
 
@@ -96,6 +114,7 @@ public class AuctionDetailActivity extends AppCompatActivity implements
 
         findViewById(R.id.restaurant_button_back).setOnClickListener(this);
         findViewById(R.id.fab_show_rating_dialog).setOnClickListener(this);
+        findViewById(R.id.buy_button).setOnClickListener(this);
 
         // Get restaurant ID from extras
         String restaurantId = getIntent().getExtras().getString(ITEM_ID);
@@ -164,7 +183,58 @@ public class AuctionDetailActivity extends AppCompatActivity implements
             case R.id.fab_show_rating_dialog:
                 onAddRatingClicked(v);
                 break;
+            case R.id.buy_button:
+                onBuyClicked(v);
+                break;
         }
+    }
+
+    private void onBuyClicked(View v) {
+        Log.d("onBuyClicked", "called buy");
+        // Instantiate the RequestQueue.
+        JSONObject params = new JSONObject();
+        try {
+            params.put("medium", "balance");
+            params.put("payee_id", "5db48daf3c8c2216c9fcb63e");
+            params.put("transaction_date", "2019-10-26");
+            params.put("status", "pending");
+            params.put("amount", 100);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://api.reimaginebanking.com/accounts/5db48c813c8c2216c9fcb63d/transfers?key=ba3960564eccc01469a256e4fec3af3d";
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, url, params,
+                new Response.Listener() {
+                    @Override
+                    public void onResponse(Object response) {
+                        Log.d("VolleyResponse" ,response.toString());
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("errResponse", "That didn't work! "+ error.toString());
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json");
+                params.put("Accept", "application/json");
+
+                return params;
+            }
+        };
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonObjectRequest);
+
     }
 
     private Task<Void> addRating(final DocumentReference restaurantRef,
@@ -218,22 +288,34 @@ public class AuctionDetailActivity extends AppCompatActivity implements
         onTossItemLoaded(snapshot.toObject(TossItem.class));
     }
 
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
     private void onTossItemLoaded(TossItem tossItem) {
         Log.d("onTossItemLoaded", "called method");
         Log.d("onTossItemLoaded", tossItem.toString());
         mNameView.setText(tossItem.getName());
         mRatingIndicator.setRating((float) tossItem.getAvgRating());
         mNumRatingsView.setText(getString(R.string.fmt_num_ratings, tossItem.getNumRatings()));
-        mCityView.setText(tossItem.getCity());
+        mCityView.setText(tossItem.getAddress());
         mCategoryView.setText(tossItem.getCategory());
-        mPriceView.setText(TossItemUtil.getPriceString(tossItem));
+        mPriceView.setText(TossItemUtil.getPriceString(tossItem.getStartPrice()));
+        mImageView.setImageBitmap(StringToBitMap(tossItem.getPhoto()));
 
-        // Background image
-        if (!TextUtils.isEmpty(tossItem.getPhoto())) {
-            Glide.with(mImageView.getContext())
-                    .load(tossItem.getPhoto())
-                    .into(mImageView);
-        }
+//        // Background image
+//        if (!TextUtils.isEmpty(tossItem.getPhoto())) {
+//            Glide.with(mImageView.getContext())
+//                    .load(tossItem.getPhoto())
+//                    .into(mImageView);
+//        }
 
 
     }

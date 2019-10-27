@@ -32,31 +32,31 @@ public class TossItem {
     public static final String FIELD_AVG_RATING = "avgRating";
 
     private String name;
-    private String city;
+    private String address;
     private String category;
     private String photo;
     private int price;
     private int numRatings;
+    private String description;
     private double avgRating;
     // Need to add string to date formatter
     private String startDate;
     private String endDate;
     private String currentDate;
     // Start price and End price
-    private int startPrice;
-    private int endPrice;
+    private long startPrice;
+    private long endPrice;
     private long currentPrice;
 
     public TossItem() {}
 
-    public TossItem(String name, String city, String category, String photo,
-                    int price, int numRatings, double avgRating, String startDate, String endDate, String currentDate, int startPrice, int endPrice, long currentPrice) {
+    public TossItem(String name, String address, String description, String category, String photo,
+                    String startDate, String currentDate, String endDate, long startPrice, long currentPrice, long endPrice) {
         this.name = name;
-        this.city = city;
+        this.description = description;
+        this.address = address;
+        this.photo = photo;
         this.category = category;
-        this.price = price;
-        this.numRatings = numRatings;
-        this.avgRating = avgRating;
         this.startDate = startDate;
         this.endDate = endDate;
         this.currentDate = currentDate;
@@ -73,12 +73,20 @@ public class TossItem {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getCategory() {
@@ -130,10 +138,10 @@ public class TossItem {
     public String getCurrentDate() {return currentDate;}
     public void setCurrentDate(String currentDate) {this.currentDate = currentDate;}
 
-    public int getStartPrice() {return startPrice;}
+    public long getStartPrice() {return startPrice;}
     public void setStartPrice (int startPrice) {this.startPrice = startPrice;}
 
-    public int getEndPrice() {return endPrice;}
+    public long getEndPrice() {return endPrice;}
     public void setEndPrice(int endPrice) {this.endPrice = endPrice;}
 
     public long getCurrentPrice() {return currentPrice;}

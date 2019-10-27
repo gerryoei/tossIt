@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.example.fireeats.adapter.TossItemAdapter;
 import com.google.firebase.example.fireeats.model.TossItem;
 import com.google.firebase.example.fireeats.util.TossItemUtil;
@@ -84,6 +85,13 @@ public class MainActivity extends AppCompatActivity implements
         mCurrentSortByView = findViewById(R.id.text_current_sort_by);
         mRestaurantsRecycler = findViewById(R.id.recycler_restaurants);
         mEmptyView = findViewById(R.id.view_empty);
+
+        findViewById(R.id.floatingActionButton2).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                onAddItemToSellClicked();
+            }
+        });
 
         findViewById(R.id.filter_bar).setOnClickListener(this);
         findViewById(R.id.button_clear_filter).setOnClickListener(this);
@@ -169,6 +177,12 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private void onAddItemToSellClicked(){
+        Intent intent = new Intent(this, AddItemToSellActivity.class);
+        startActivity(intent);
+    }
+
+
     private void onAddItemsClicked() {
         // Get a reference to the tossitem collection
         CollectionReference tossitem = mFirestore.collection("testitem");
@@ -238,6 +252,9 @@ public class MainActivity extends AppCompatActivity implements
                 AuthUI.getInstance().signOut(this);
                 startSignIn();
                 break;
+            case R.id.menu_profile:
+                seeProfile();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -299,6 +316,17 @@ public class MainActivity extends AppCompatActivity implements
 
         startActivityForResult(intent, RC_SIGN_IN);
         mViewModel.setIsSigningIn(true);
+    }
+
+    private void seeProfile() {
+        // Get user name from Firebase
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String name = user.getDisplayName();
+        Log.d("MainActivity username", name);
+
+        Intent profile_intent=new Intent(MainActivity.this,UserInfoActivity.class)
+                .putExtra("username", name);
+        startActivity(profile_intent);
     }
 
     private void showTodoToast() {

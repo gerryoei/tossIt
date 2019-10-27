@@ -97,7 +97,7 @@ public class TossItemUtil {
         return numofdays;
     }
     // Calculate current price
-    public static long getCurrentPrice(String startDate, String endDate, String currentDate, int startPrice, int endPrice){
+    public static long getCurrentPrice(String startDate, String endDate, String currentDate, long startPrice, long endPrice){
         long currentPrice;
 
         int yearStartDate = Integer.parseInt(startDate.substring(0,4));
@@ -119,8 +119,8 @@ public class TossItemUtil {
         Log.d("dayEndDate is = ", Integer.toString(dayEndDate));
         Log.d("dayCurrentDate is = ", Integer.toString(dayCurrentDate));
 
-        int numerator = daysBetween(yearCurrentDate,monthCurrentDate,dayCurrentDate,yearEndDate,monthEndDate,dayEndDate)*(startPrice-endPrice);
-        Log.d("numerator = ", Integer.toString(numerator));
+        long numerator = daysBetween(yearCurrentDate,monthCurrentDate,dayCurrentDate,yearEndDate,monthEndDate,dayEndDate)*(startPrice-endPrice);
+        Log.d("numerator = ", Long.toString(numerator));
         int denominator = daysBetween(yearStartDate,monthStartDate,dayStartDate,yearEndDate,monthEndDate,dayEndDate);
         Log.d("denominator = ", Integer.toString(denominator));
 
@@ -149,7 +149,7 @@ public class TossItemUtil {
         int[] prices = new int[]{1, 2, 3};
 
         tossItem.setName(getRandomName(random));
-        tossItem.setCity(getRandomString(cities, random));
+        tossItem.setAddress(getRandomString(cities, random));
         tossItem.setCategory(getRandomString(categories, random));
         tossItem.setPhoto(getRandomString(IMG_LINKS, random));
         tossItem.setPrice(getRandomInt(prices, random));
@@ -192,16 +192,17 @@ public class TossItemUtil {
     /**
      * Get price represented as dollar signs.
      */
-    public static String getPriceString(int priceInt) {
-        switch (priceInt) {
-            case 1:
-                return "$";
-            case 2:
-                return "$$";
-            case 3:
-            default:
-                return "$$$";
-        }
+    public static String getPriceString(long price) {
+//        switch (priceInt) {
+//            case 1:
+//                return "$";
+//            case 2:
+//                return "$$";
+//            case 3:
+//            default:
+//                return "$$$";
+//        }
+        return "$" + String.valueOf(price);
     }
 
     private static double getRandomRating(Random random) {

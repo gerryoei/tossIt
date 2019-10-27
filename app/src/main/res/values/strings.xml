@@ -28,6 +28,7 @@
     <string name="sorted_by_popularity">sorted by popularity</string>
 
     <string name="add_random_items">Add Random Items</string>
+    <string name="see_profile">Profile</string>
     <string name="sign_out">Sign Out</string>
     <string name="delete_all">Delete All</string>
     <string name="divider_bullet">•</string>
@@ -125,5 +126,13 @@
         <item>@string/sort_by_rating</item>
         <item>@string/sort_by_popularity</item>
         <item>@string/sort_by_price</item>
+    </string-array>
+
+    <string name="category_prompt">Choose a category</string>
+
+    <string-array name="tags">
+        <item>Tech</item>
+        <item>Furniture</item>
+        <item>Other</item>
     </string-array>
 </resources>
