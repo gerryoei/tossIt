@@ -93,11 +93,11 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
             super(itemView);
             imageView = itemView.findViewById(R.id.restaurant_item_image);
             nameView = itemView.findViewById(R.id.restaurant_item_name);
-            ratingBar = itemView.findViewById(R.id.restaurant_item_rating);
-            numRatingsView = itemView.findViewById(R.id.restaurant_item_num_ratings);
+//            ratingBar = itemView.findViewById(R.id.restaurant_item_rating);
+//            numRatingsView = itemView.findViewById(R.id.restaurant_item_num_ratings);
             priceView = itemView.findViewById(R.id.restaurant_item_price);
-            categoryView = itemView.findViewById(R.id.restaurant_item_category);
-            cityView = itemView.findViewById(R.id.restaurant_item_city);
+//            categoryView = itemView.findViewById(R.id.restaurant_item_category);
+//            cityView = itemView.findViewById(R.id.restaurant_item_city);
             currentDateView = itemView.findViewById(R.id.startdate);
         }
 
@@ -109,11 +109,11 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
 
             imageView.setImageBitmap(StringToBitMap(tossItem.getPhoto()));
             nameView.setText(tossItem.getName());
-            ratingBar.setRating((float) tossItem.getAvgRating());
-            cityView.setText(tossItem.getAddress());
-            categoryView.setText(tossItem.getCategory());
-            numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
-                    tossItem.getNumRatings()));
+//            ratingBar.setRating((float) tossItem.getAvgRating());
+//            cityView.setText(tossItem.getAddress());
+//            categoryView.setText(tossItem.getCategory());
+//            numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
+//                    tossItem.getNumRatings()));
             if (tossItem.getCurrentPrice() == 0)
             {
                 priceView.setText(TossItemUtil.getPriceString(tossItem.getStartPrice()));
