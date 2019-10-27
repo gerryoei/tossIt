@@ -158,4 +158,33 @@
         android:clickable="true"
         app:srcCompat="@drawable/ic_add_white_24px" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:layout_width="22.8dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:background="@drawable/home_clicked"/>
+
+        <ImageButton
+            android:layout_width="25.2dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="60dp"
+            android:layout_gravity="left"
+            android:background="@drawable/starred_menu"/>
+
+        <ImageButton
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="60dp"
+            android:layout_gravity="right"
+            android:background="@drawable/profile_menu"/>
+
+    </androidx.cardview.widget.CardView>
+
 </RelativeLayout>
