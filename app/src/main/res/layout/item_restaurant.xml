@@ -8,19 +8,21 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView_newUI"
-        android:layout_width="204dp"
-        android:layout_height="173dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         android:layout_marginRight="20dp"
-        android:elevation="50sp">
+        android:elevation="50sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="118dp">
+            android:layout_height="180dp">
 
             <ImageView
                 android:id="@+id/restaurant_item_image"
                 android:layout_width="match_parent"
-                android:layout_height="118dp"
+                android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/chair"/>
 
@@ -38,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="126dp"
+            android:layout_marginTop="195dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
