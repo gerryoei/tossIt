@@ -213,7 +213,9 @@ public class AddItemToSellActivity extends AppCompatActivity
                                         itemCategory,
                                         itemPhoto,
                                         startDate,
+                                        startDate,
                                         endDate,
+                                        startPrice,
                                         startPrice,
                                         endPrice);
         // Get a reference to the tossitem collection

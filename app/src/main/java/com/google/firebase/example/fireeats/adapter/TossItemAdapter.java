@@ -114,7 +114,14 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
             categoryView.setText(tossItem.getCategory());
             numRatingsView.setText(resources.getString(R.string.fmt_num_ratings,
                     tossItem.getNumRatings()));
-            priceView.setText(TossItemUtil.getPriceString(tossItem.getStartPrice()));
+            if (tossItem.getCurrentPrice() == 0)
+            {
+                priceView.setText(TossItemUtil.getPriceString(tossItem.getStartPrice()));
+            } else
+            {
+                priceView.setText(TossItemUtil.getPriceString(tossItem.getCurrentPrice()));
+            }
+
             currentDateView.setText(tossItem.getStartDate());
 
             // Click listener

@@ -16,13 +16,18 @@
  package com.google.firebase.example.fireeats.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.firebase.example.fireeats.R;
 import com.google.firebase.example.fireeats.model.TossItem;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -31,6 +36,8 @@ import java.util.concurrent.TimeUnit;
 
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
+
+import static java.lang.Math.abs;
 
 /**
  * Utilities for Restaurants.
@@ -74,21 +81,54 @@ public class TossItemUtil {
     };
 
 
-//    private TextView dateTimeDisplay;
-//    private Calendar calendar;
-//    private SimpleDateFormat dateFormat;
-//    private String date;
-
-//    public static void getCurrentDate() {
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        LocalDateTime now = LocalDateTime.now();
-//        System.out.println(dtf.format(now));
-//    }
-
+    // Get current date
     public static String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-        return currentDate;
+        String currentDate = DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.getTime());
+        String corDate = "20" + currentDate.substring(6,8) + "/" + currentDate.substring(0,2) + "/" + currentDate.substring(3,5) ;
+        Log.d("getCurrentDate", currentDate);
+        Log.d("getCurrentDate", corDate);
+        return corDate;
+    }
+
+    public static int daysBetween(int startyear,int startmonth, int startdate, int endyear, int endmonth, int enddate){
+        int numofdays = 0;
+        numofdays = abs((startdate - enddate)) + abs(startmonth-endmonth)*30 + abs(startyear-endyear)*365;
+        return numofdays;
+    }
+    // Calculate current price
+    public static long getCurrentPrice(String startDate, String endDate, String currentDate, long startPrice, long endPrice){
+        long currentPrice;
+
+        int yearStartDate = Integer.parseInt(startDate.substring(0,4));
+        int yearEndDate = Integer.parseInt(endDate.substring(0,4));
+        int yearCurrentDate = Integer.parseInt(currentDate.substring(0,4));
+        Log.d("yearstartdate is = ", Integer.toString(yearStartDate));
+        Log.d("yearenddate is = ", Integer.toString(yearEndDate));
+        Log.d("yearcurrentdate is = ", Integer.toString(yearCurrentDate));
+        int monthStartDate = Integer.parseInt(startDate.substring(5,7));
+        int monthEndDate = Integer.parseInt(endDate.substring(5,7));
+        int monthCurrentDate = Integer.parseInt(currentDate.substring(5,7));
+        Log.d("monthstartdate is = ", Integer.toString(monthStartDate));
+        Log.d("monthenddate is = ", Integer.toString(monthEndDate));
+        Log.d("monthcurrentdate is = ", Integer.toString(monthCurrentDate));
+        int dayStartDate = Integer.parseInt(startDate.substring(8,10));
+        int dayEndDate = Integer.parseInt(endDate.substring(8,10));
+        int dayCurrentDate = Integer.parseInt(currentDate.substring(8,10));
+        Log.d("dayStartDate is = ", Integer.toString(dayStartDate));
+        Log.d("dayEndDate is = ", Integer.toString(dayEndDate));
+        Log.d("dayCurrentDate is = ", Integer.toString(dayCurrentDate));
+
+        long numerator = daysBetween(yearCurrentDate,monthCurrentDate,dayCurrentDate,yearEndDate,monthEndDate,dayEndDate)*(startPrice-endPrice);
+        Log.d("numerator = ", Long.toString(numerator));
+        int denominator = daysBetween(yearStartDate,monthStartDate,dayStartDate,yearEndDate,monthEndDate,dayEndDate);
+        Log.d("denominator = ", Integer.toString(denominator));
+
+        currentPrice = (numerator / denominator) + endPrice;
+        Log.d("currentPrice = ", Long.toString(currentPrice));
+
+        return currentPrice;
+
     }
 
     /**
@@ -115,8 +155,19 @@ public class TossItemUtil {
         tossItem.setPrice(getRandomInt(prices, random));
         tossItem.setAvgRating(getRandomRating(random));
         tossItem.setNumRatings(random.nextInt(20));
-        tossItem.setStartDate(getCurrentDate());
 
+        // Set the dates
+        tossItem.setStartDate("2019/10/11");
+        tossItem.setEndDate("2019/10/30");
+        tossItem.setCurrentDate(getCurrentDate());
+
+        if (tossItem.getCategory() == "Tech"){
+            Log.d("TECH ITEM FOUND",tossItem.getStartDate());
+        }
+        // Set the prices
+        tossItem.setStartPrice(950);
+        tossItem.setEndPrice(50);
+        tossItem.setCurrentPrice(getCurrentPrice(tossItem.getStartDate(),tossItem.getEndDate(),tossItem.getCurrentDate(), tossItem.getStartPrice(),tossItem.getEndPrice()));
         return tossItem;
     }
 

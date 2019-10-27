@@ -234,6 +234,7 @@ public class AuctionDetailActivity extends AppCompatActivity implements
 
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
+
     }
 
     private Task<Void> addRating(final DocumentReference restaurantRef,

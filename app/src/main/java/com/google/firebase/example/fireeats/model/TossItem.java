@@ -17,6 +17,8 @@
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import java.util.Calendar;
+
 /**
  * TossItem POJO.
  */
@@ -40,14 +42,16 @@ public class TossItem {
     // Need to add string to date formatter
     private String startDate;
     private String endDate;
+    private String currentDate;
     // Start price and End price
     private long startPrice;
     private long endPrice;
+    private long currentPrice;
 
     public TossItem() {}
 
     public TossItem(String name, String address, String description, String category, String photo,
-                    String startDate, String endDate, long startPrice, long endPrice) {
+                    String startDate, String currentDate, String endDate, long startPrice, long currentPrice, long endPrice) {
         this.name = name;
         this.description = description;
         this.address = address;
@@ -55,8 +59,10 @@ public class TossItem {
         this.category = category;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.currentDate = currentDate;
         this.startPrice = startPrice;
         this.endPrice = endPrice;
+        this.currentPrice = currentPrice;
     }
 
     public String getName() {
@@ -129,10 +135,15 @@ public class TossItem {
     public String getEndDate() {return endDate;}
     public void setEndDate(String endDate) {this.endDate = endDate;}
 
+    public String getCurrentDate() {return currentDate;}
+    public void setCurrentDate(String currentDate) {this.currentDate = currentDate;}
+
     public long getStartPrice() {return startPrice;}
     public void setStartPrice (int startPrice) {this.startPrice = startPrice;}
 
     public long getEndPrice() {return endPrice;}
     public void setEndPrice(int endPrice) {this.endPrice = endPrice;}
 
+    public long getCurrentPrice() {return currentPrice;}
+    public void setCurrentPrice(long currentPrice) {this.currentPrice = currentPrice;}
 }
