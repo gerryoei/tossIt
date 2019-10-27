@@ -149,14 +149,24 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/floatingActionButton2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_alignParentRight="true"-->
+<!--        android:clickable="true"-->
+<!--        app:srcCompat="@drawable/ic_add_white_24px" />-->
+
+    <ImageButton
         android:id="@+id/floatingActionButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/add_listing"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="58dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_add_white_24px" />
+        android:layout_alignParentRight="true"/>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
