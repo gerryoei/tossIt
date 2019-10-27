@@ -16,6 +16,7 @@
  package com.google.firebase.example.fireeats;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -235,6 +237,17 @@ public class AuctionDetailActivity extends AppCompatActivity implements
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
 
+        AlertDialog alertDialog = new AlertDialog.Builder(AuctionDetailActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("You have bought this item!");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.show();
     }
 
     private Task<Void> addRating(final DocumentReference restaurantRef,
