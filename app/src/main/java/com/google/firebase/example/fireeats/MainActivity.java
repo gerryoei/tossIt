@@ -296,6 +296,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onRestaurantSelected(DocumentSnapshot restaurant) {
         // Go to the details page for the selected restaurant
+        Log.d("On restaurant selected", "hahaha");
         Intent intent = new Intent(this, AuctionDetailActivity.class);
         intent.putExtra(AuctionDetailActivity.ITEM_ID, restaurant.getId());
 

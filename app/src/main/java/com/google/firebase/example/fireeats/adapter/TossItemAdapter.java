@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,12 +124,15 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
             }
 
             currentDateView.setText(tossItem.getStartDate());
+            Log.d("toss item", "nullllllllll");
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Log.d("toss item", "null");
                     if (listener != null) {
+                        Log.d("toss item", "not null");
                         listener.onRestaurantSelected(snapshot);
                     }
                 }

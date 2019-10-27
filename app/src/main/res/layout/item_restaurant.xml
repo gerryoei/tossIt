@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_newUI"
         android:layout_width="204dp"
         android:layout_height="173dp"
         android:layout_marginRight="20dp"
-        android:elevation="50sp"
-        android:clickable="true">
+        android:elevation="50sp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="118dp"
                 android:scaleType="centerCrop"
-                android:clickable="true"
                 android:background="@drawable/chair"/>
 
             <ImageButton
