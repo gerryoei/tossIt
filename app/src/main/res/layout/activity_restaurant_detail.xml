@@ -147,7 +147,7 @@
                     android:layout_marginLeft="8dp"
                     android:textColor="#757576"
                     android:textSize="16sp"
-                    android:text="Posted mm/dd/yyyy"/>
+                    android:text="Posted 2019/10/08"/>
 
             </LinearLayout>
 

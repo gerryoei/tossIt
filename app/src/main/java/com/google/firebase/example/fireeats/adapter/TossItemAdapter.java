@@ -129,7 +129,7 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
 
             String startDate = tossItem.getStartDate();
             startDate = startDate.substring(0,10);
-            currentDateView.setText(startDate);
+            currentDateView.setText("02w 05d");
 
             Log.d("toss item", startDate);
 
