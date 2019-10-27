@@ -44,12 +44,12 @@
 
                 <ImageView
                     android:id="@+id/button_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_centerVertical="true"
-                    android:padding="8dp"
                     android:tint="@color/greySecondary"
-                    app:srcCompat="@drawable/ic_filter_list_white_24px" />
+                    app:srcCompat="@drawable/search_icon" />
 
                 <LinearLayout
                     android:id="@+id/text_current_search_container"
@@ -60,23 +60,21 @@
                     android:layout_toRightOf="@+id/button_filter"
                     android:orientation="vertical"
                     android:paddingBottom="8dp"
-                    android:paddingTop="8dp">
+                    android:paddingTop="8dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/text_current_search"
                         style="@style/AppTheme.Body1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/all_restaurants"
-                        android:textColor="@color/greySecondary"
-                        tools:text="Filter" />
+                        android:textColor="@color/greySecondary"/>
 
                     <TextView
                         android:id="@+id/text_current_sort_by"
                         style="@style/AppTheme.Caption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/sorted_by_rating"
                         android:textColor="@color/greyDisabled" />
 
                 </LinearLayout>
