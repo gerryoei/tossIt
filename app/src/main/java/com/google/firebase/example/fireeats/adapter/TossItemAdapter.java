@@ -36,6 +36,10 @@ import com.google.firebase.example.fireeats.util.TossItemUtil;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
@@ -123,8 +127,11 @@ public class TossItemAdapter extends FirestoreAdapter<TossItemAdapter.ViewHolder
                 priceView.setText(TossItemUtil.getPriceString(tossItem.getCurrentPrice()));
             }
 
-            currentDateView.setText(tossItem.getStartDate());
-            Log.d("toss item", "nullllllllll");
+            String startDate = tossItem.getStartDate();
+            startDate = startDate.substring(0,10);
+            currentDateView.setText("02w 05d");
+
+            Log.d("toss item", startDate);
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -12,6 +12,8 @@ import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -48,7 +50,7 @@ public class AddItemToSellActivity extends AppCompatActivity
     ImageView itemImage;
     Button uploadImage;
     EditText mItemDescription;
-    EditText mItemAddress;
+    AutoCompleteTextView mItemAddress;
     EditText mItemPrice;
     EditText mItemPriceEnd;
     EditText mExpiredDate;
@@ -63,16 +65,29 @@ public class AddItemToSellActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_to_sell);
 
+        String[] arr = {
+                "1000 Northside Dr NW, Atlanta, GA, 30318",
+                "455 14th St NW, Atlanta, GA 30318",
+                "801 Atlantic Dr, Atlanta, GA 30332",
+                "266 Ferst Dr NW, Atlanta, GA 30332",
+                "3311 Flowers Rd S, Atlanta, GA 30341"};
+
         mItemName = (EditText)findViewById(R.id.sellItem_form_name);
         mItemPrice = (EditText)findViewById(R.id.sellItem_form_price);
         mItemDescription = (EditText)findViewById(R.id.sellItem_form_description);
-        mItemAddress = (EditText)findViewById(R.id.sellItem_form_address);
+        mItemAddress = (AutoCompleteTextView) findViewById(R.id.sellItem_form_address);
         mExpiredDate = (EditText)findViewById(R.id.expiredDate);
         mExpiredDate.setInputType(InputType.TYPE_NULL);
         itemImage = (ImageView)findViewById(R.id.sellItem_imageUpload);
         uploadImage = (Button)findViewById(R.id.button_imageUpload);
         mItemPriceEnd = (EditText)findViewById(R.id.sellItem_form_priceEnd);
         spinner1 = (Spinner)findViewById(R.id.spinner1);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>
+                (this,android.R.layout.select_dialog_item, arr);
+
+        mItemAddress.setThreshold(2);
+        mItemAddress.setAdapter(adapter);
 
         uploadImage.setOnClickListener(new View.OnClickListener() {
             @Override

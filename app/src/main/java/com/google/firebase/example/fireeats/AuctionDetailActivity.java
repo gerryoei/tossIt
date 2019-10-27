@@ -353,6 +353,7 @@ public class AuctionDetailActivity extends AppCompatActivity implements
 
     public void onBackArrowClicked(View view) {
         onBackPressed();
+        finish();
     }
 
     public void onAddRatingClicked(View view) {
