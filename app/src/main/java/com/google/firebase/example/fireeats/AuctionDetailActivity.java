@@ -16,6 +16,7 @@
  package com.google.firebase.example.fireeats;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,6 +44,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -50,6 +53,7 @@ import com.google.firebase.example.fireeats.adapter.BidAdapter;
 import com.google.firebase.example.fireeats.model.Bid;
 import com.google.firebase.example.fireeats.model.TossItem;
 import com.google.firebase.example.fireeats.util.TossItemUtil;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -57,6 +61,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
 import org.json.JSONException;
@@ -235,6 +240,32 @@ public class AuctionDetailActivity extends AppCompatActivity implements
         // Add the request to the RequestQueue.
         queue.add(jsonObjectRequest);
 
+        AlertDialog alertDialog = new AlertDialog.Builder(AuctionDetailActivity.this).create();
+        alertDialog.setTitle("Alert");
+        alertDialog.setMessage("You have bought this item!");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        final CollectionReference itemsRef = mFirestore.collection("testitem");
+                        Query query = itemsRef.whereEqualTo("name", mNameView.getText());
+                        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    for (DocumentSnapshot document : task.getResult()) {
+                                        itemsRef.document(document.getId()).delete();
+                                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                                    }
+                                } else {
+                                    Log.d(TAG, "Error getting documents: ", task.getException());
+                                }
+                            }
+                        });
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+        alertDialog.show();
     }
 
     private Task<Void> addRating(final DocumentReference restaurantRef,
